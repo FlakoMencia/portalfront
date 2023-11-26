@@ -1,0 +1,9 @@
+<div class=" justify-content-md-center">
+  <h5 class="card-title"> ¿BackEnd, Are you alive?</h5>
+</div>
+<div class="pt-3 " style="text-align: end">
+  <i *ngIf="!alive && data !== ''" class="fa fa-unlink large-icon unconnected-icon"></i>
+  <i *ngIf="alive" class="fa fa-network-wired large-icon connect-icon"></i>
+</div>
+<div [innerHTML]="data" style="text-align: end">
+</div>
