@@ -1,1 +1,58 @@
-<p>register-form works!</p>
+<form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
+    <div class="form-outline mb-2">
+        <input type="text"
+               id="nameInput"
+               name="name"
+               class="form-control"
+               [(ngModel)]="name"
+               #nameInput="ngModel"
+               [ngClass]="{'form-control': true,
+                        'is-invalid': nameInput.invalid &&
+                        (nameInput.dirty || nameInput.touched) ||
+                        (submitted && nameInput.invalid) }"
+               required/>
+        <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+            <div *ngIf="nameInput.errors" style="color:red">*Obligatorio.</div>
+        </div>
+        <label class="form-label" for="nameInput">Nombre</label>
+    </div>
+    <div class="form-outline mb-2">
+        <input type="email"
+               id="emailRegister"
+               name="email"
+               class="form-control"
+               [(ngModel)]="email"
+               #emailRegister="ngModel"
+               [ngClass]="{'form-control': true,
+                        'is-invalid': emailRegister.invalid &&
+                        (emailRegister.dirty || emailRegister.touched) ||
+                        (submitted && emailRegister.invalid) }"
+               required/>
+        <div *ngIf="emailRegister.invalid && (emailRegister.dirty || emailRegister.touched)">
+            <div *ngIf="emailRegister.errors" style="color:red">*Obligatorio.</div>
+        </div>
+        <label class="form-label" for="emailRegister">Email/User</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="password"
+               id="passwordRegister"
+               name="password"
+               class="form-control"
+               [(ngModel)]="password"
+               #passwordRegister="ngModel"
+               [ngClass]="{'form-control': true,
+                        'is-invalid': passwordRegister.invalid &&
+                        (passwordRegister.dirty || passwordRegister.touched) ||
+                        (submitted && passwordRegister.invalid) }"
+               required/>
+        <div *ngIf="passwordRegister.invalid && (passwordRegister.dirty || passwordRegister.touched)">
+            <div *ngIf="passwordRegister.errors" style="color:red">*Obligatorio.</div>
+        </div>
+        <label class="form-label" for="passwordRegister">Password</label>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block mb-4 float-end">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        Registrarse
+    </button>
+</form>

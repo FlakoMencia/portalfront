@@ -9,6 +9,7 @@ export class AxiosService {
   constructor() {
     axios.defaults.baseURL="http://localhost:8080"
     axios.defaults.headers.post["Content-Type"] = "application/json"
+    axios.defaults.headers.get["Content-Type"] = "application/json"
   }
   getAuthToken(): string | null {
     return window.localStorage.getItem("auth_token");
@@ -24,17 +25,15 @@ export class AxiosService {
 
 
   request(method: string, url: string, data: any): Promise<any> {
-    // let headers: any = {};
-    //
-    // if (this.getAuthToken() !== null) {
-    //   headers = {"Authorization": "Bearer " + this.getAuthToken()};
-    // }
-
+    let headers: any = {};
+    if (this.getAuthToken() !== null) {
+      headers = {"Authorization": "Bearer " + this.getAuthToken()};
+    }
     return axios({
       method: method,
       url: url,
-      data: data
-      // headers: headers
+      data: data,
+      headers: headers
     });
   }
 }

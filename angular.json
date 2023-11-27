@@ -27,13 +27,18 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/sweetalert2/dist/sweetalert2.css",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate.css",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate-multiple.css",
+              "node_modules/ngx-spinner/animations/pacman.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/@fortawesome/fontawesome-free/js/all.js"
+              "node_modules/@fortawesome/fontawesome-free/js/all.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js"
             ]
           },
           "configurations": {

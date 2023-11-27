@@ -1,6 +1,19 @@
 <div class="row justify-content-center">
   <div class="col-4">
-    <app-login-form *ngIf="componentToShow == 'login'" (onSubmitLoginEvent)="onLogin($event)" (onSubmitRegisterEvent)="onRegister($event)"/>
+    <app-login-form *ngIf="componentToShow == 'login' || componentToShow == 'register'"
+                    (onSubmitLoginEvent)="onLogin($event)"
+                    (onSubmitRegisterEvent)="onRegister($event)"/>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-estado-backend *ngIf="componentToShow == 'login' || componentToShow == 'register'"></app-estado-backend>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <app-usuarios *ngIf="componentToShow == 'usuarios'"
+                  (onLogOut)="onLogOut()" ></app-usuarios>
+    </div>
   </div>
 </div>
-<app-usuarios *ngIf="componentToShow == 'usuarios'"/>
+

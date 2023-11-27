@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
-
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { ContentComponent } from './content/content.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { SpinerComponent } from './spiner/spiner.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,13 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     LoginFormComponent,
     RegisterFormComponent,
     UsuariosComponent,
+    SpinerComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
     AppRoutingModule
   ],
   providers: [],

@@ -1,20 +1,64 @@
-<div [ngClass]="active == 'login' ? 'tab-pane fade show active' : 'tab-pane fade'">
-  <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+<div class="row justify-content-center">
+    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button [ngClass]="active == 'login' ? 'nav-link active' : 'nav-link'" id="tab-login"
+                    (click)="onLoginTab()">Login
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button [ngClass]="active == 'register' ? 'nav-link active' : 'nav-link'" id="tab-register"
+                    (click)="onRegisterTab()">Register
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div [ngClass]="active == 'login' ? 'tab-pane fade show active' : 'tab-pane fade'">
+            <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
 
-    <div class="form-outline mb-4">
-      <input type="email" id="emailName" name= "email" class="form-control" [(ngModel)]="email" />
-      <label class="form-label" for="emailName">Username</label>
+                <div class="form-outline mb-2">
+                    <input type="email"
+                           id="emailName"
+                           name="email"
+                           class="form-control"
+                           [(ngModel)]="email"
+                           #emailName="ngModel"
+                           [ngClass]="{'form-control': true,
+                        'is-invalid': emailName.invalid &&
+                        (emailName.dirty || emailName.touched) ||
+                        (submitted && emailName.invalid) }"
+                           required/>
+                    <div *ngIf="emailName.invalid && (emailName.dirty || emailName.touched)">
+                        <div *ngIf="emailName.errors" style="color:red">*Obligatorio.</div>
+                    </div>
+                    <label class="form-label" for="emailName">Email/User</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="password"
+                           id="loginPassword"
+                           name="password"
+                           class="form-control"
+                           [(ngModel)]="password"
+                           #loginPassword="ngModel"
+                           [ngClass]="{'form-control': true,
+                        'is-invalid': loginPassword.invalid &&
+                        (loginPassword.dirty || loginPassword.touched) ||
+                        (submitted && loginPassword.invalid) }"
+                           required/>
+                    <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)">
+                        <div *ngIf="loginPassword.errors" style="color:red">*Obligatorio.</div>
+                    </div>
+                    <label class="form-label" for="loginPassword">Password</label>
+                </div>
+                <button type="submit" class="btn btn-outline-primary btn-block mb-4 float-end">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Autenticarse
+                </button>
+
+            </form>
+        </div>
+        <div [ngClass]="active == 'register' ? 'tab-pane fade show active' : 'tab-pane fade'">
+            <app-register-form (onSubmitRegisterEvent)="onSubmitRegister($event)" ></app-register-form>
+        </div>
     </div>
-
-    <div class="form-outline mb-4">
-      <input type="password" id="loginPassword" name="password" class="form-control" [(ngModel)]="password" />
-      <label class="form-label" for="loginPassword">Password</label>
-    </div>
-
-    <button type="submit" class="btn btn-primary btn-block mb-4" >
-      <i class="fa-solid fa-right-to-bracket"></i>
-      Autenticarse
-    </button>
-
-  </form>
 </div>

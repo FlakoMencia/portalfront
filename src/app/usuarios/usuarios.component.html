@@ -1,1 +1,32 @@
-<p>YES SIR! LOOK THE TOKEN!</p>
+
+<div class="me-4" style="text-align: end">
+    <button (click)="redirectToLogin()" class="btn btn-outline-dark">
+        <i class="fa-solid fa-right-from-bracket"></i>
+            Salir de Sesión
+    </button>
+</div>
+<div class="table-responsive p-3 ">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th>Email</th>
+            <th>Ultima Sessión</th>
+            <th>Activo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of usuarios">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.userEmail }}</td>
+            <td>{{ item.lastLogin }}</td>
+            <td>{{ item.isActive ? 'SI' : 'NO'  }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ms-4 text-bg-dark col-2">
+    <h4>    {{total}} </h4>
+</div>

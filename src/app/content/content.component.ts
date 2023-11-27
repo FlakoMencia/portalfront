@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AxiosService } from "../axios.service";
+import  Swal  from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-content',
@@ -9,8 +11,16 @@ import { AxiosService } from "../axios.service";
 export class ContentComponent {
   componentToShow: string = "login";
 
-  constructor(private axiosService: AxiosService) { }
+  constructor(private axiosService: AxiosService ,private spinner: NgxSpinnerService) { }
+
+
   onLogin(input: any): void {
+    this.spinner.show();
+    if(input.email === '' || input.password ===''){
+      Swal.fire("¡Error!", 'Complete campos obligatorios', 'error');
+      this.spinner.hide();
+      return;
+    }
     this.axiosService.request(
       "POST",
       "/api/authenticate",
@@ -19,41 +29,62 @@ export class ContentComponent {
         password: input.password
       }).then(
       response => {
-        console.table(response);
         if(response.data.success){
-        console.log("response.data.data.token::::" +response.data.data.token)
           this.axiosService.setAuthToken(response.data.data.token);
           this.componentToShow = "usuarios";
         }else{
           this.componentToShow = "login";
-          alert(response.data.message); // IMPLEMENTAR SWEET ALERT AQUI
+          this.axiosService.setAuthToken(null);
+          Swal.fire('¡No Encontrado!', response.data.message, 'warning');
         }
       }).catch(
       error => {
-        console.log("error ::::::" +error)
+        Swal.fire(error.message, 'Verifique conexión o log del backend', 'error');
         this.axiosService.setAuthToken(null);
         this.componentToShow = "login";
       }
-    );
+    ).finally(()=>{
+      this.spinner.hide();
+    });
 
   }
 
-  onRegister(input: any): void {  // FIXME!
+  onRegister(input: any): void {
+    this.spinner.show();
+    if(input.name ==='' || input.email === '' || input.password ===''){
+      Swal.fire("¡Error!", 'Complete campos obligatorios', 'error');
+      this.spinner.hide();
+      return;
+    }
     this.axiosService.request(
       "POST",
       "/api/user/register",
       {
-        name: input.pending()
+        name: input.name,
+        email: input.email,
+        password: input.password
       }).then(
       response => {
-        this.axiosService.setAuthToken(response.data.token);
-        this.componentToShow = "messages";
+        if(response.data.success){
+          this.axiosService.setAuthToken(response.data.data.token);
+          this.componentToShow = "usuarios";
+        }else{
+          this.componentToShow = "register";
+          this.axiosService.setAuthToken(null);
+          Swal.fire('¡No Registrado!', response.data.message, 'warning');
+        }
       }).catch(
       error => {
+        Swal.fire(error.message, 'Verifique conexión o log del backend', 'error');
         this.axiosService.setAuthToken(null);
-        this.componentToShow = "welcome";
+        this.componentToShow = "register";
       }
-    );
+    ).finally(()=>{
+      this.spinner.hide();
+    });
   }
 
+  onLogOut(): void{
+    this. componentToShow = "login";
+  }
 }
